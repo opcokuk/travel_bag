@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+
+version = '1.0.4'
+group = 'ovh.corail'
+archivesBaseName = 'travel_bag'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: 'snapshot', version: '20190824-1.14.3'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                travel_bag {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                travel_bag {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://dvs1.progwml6.com/files/maven" }
+    maven { url = "https://maven.theillusivec4.top/" }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.55'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.24")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.24:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10")
+    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10:api")
+    compile files("modlib/tombstone-4.1.0-api.jar")
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "Travel Bag",
+            "Specification-Vendor": "Corail31",
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"Corail31",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}

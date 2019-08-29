@@ -1,0 +1,38 @@
+{
+	"parent": "travel_bag:recipes/root",
+	"rewards": {
+		"recipes": [
+			"travel_bag:travel_bag",
+			"travel_bag:colored_travel_bag_0",
+			"travel_bag:colored_travel_bag_1",
+			"travel_bag:colored_travel_bag_2",
+			"travel_bag:colored_travel_bag_3",
+			"travel_bag:colored_travel_bag_4",
+			"travel_bag:colored_travel_bag_5",
+			"travel_bag:colored_travel_bag_6",
+			"travel_bag:colored_travel_bag_7",
+			"travel_bag:colored_travel_bag_8",
+			"travel_bag:colored_travel_bag_9",
+			"travel_bag:colored_travel_bag_10",
+			"travel_bag:colored_travel_bag_11",
+			"travel_bag:colored_travel_bag_12",
+			"travel_bag:colored_travel_bag_13",
+			"travel_bag:colored_travel_bag_14",
+			"travel_bag:colored_travel_bag_15",
+			"travel_bag:colored_travel_bag_16",
+			"travel_bag:colored_travel_bag_17"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+				  {
+					"item": "minecraft:leather"
+				  }
+				]
+			}
+		}
+	}
+}

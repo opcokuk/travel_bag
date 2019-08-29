@@ -1,0 +1,8 @@
+{
+  "type": "travel_bag:colored_travel_bag",
+  "ingredients": [{"item": "travel_bag:travel_bag"}, {"item": "minecraft:gray_dye"}],
+  "result": {
+    "item": "travel_bag:travel_bag",
+	"nbt": "{color:4673362}"
+  }
+}

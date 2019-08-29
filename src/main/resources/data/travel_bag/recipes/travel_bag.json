@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"###",
+    "#0#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    },
+	"0": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "travel_bag:travel_bag"
+  }
+}
