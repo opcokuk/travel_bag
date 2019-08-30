@@ -19,6 +19,7 @@ public class ModItems {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
+        // TODO provisory
         event.getRegistry().register((SupportMods.TOMBSTONE.isLoaded() ? CompatibilityTombstone.INSTANCE.getTravelBag() : new TravelBagItem()).setRegistryName(MOD_ID, "travel_bag"));
     }
 }

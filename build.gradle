@@ -54,7 +54,7 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.24:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10")
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10:api")
-    compile files("modlib/tombstone-4.1.0-api.jar")
+    compileOnly files("modlib/tombstone-4.1.0-api.jar")
 }
 
 jar {

@@ -16,6 +16,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -29,6 +30,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import ovh.corail.travel_bag.compatibility.CompatibilityCurios;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
@@ -165,15 +167,17 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
         bagNBT.sort(Comparator.comparingInt(o -> ((CompoundNBT) o).getInt("Slot")));
         for (int i = 0; i < bagNBT.size(); i++) {
             CompoundNBT slotNBT = bagNBT.getCompound(i);
-            ItemStack currentStack = ItemStack.read(slotNBT);
             int slotId = slotNBT.getInt("Slot");
             if (slotId == TravelBagContainer.GLUTTONY_SLOT_ID) {
                 continue;
             }
             ids.remove(slotId);
-            if (isStackable && currentStack.getItem() == trackedStack.getItem() && currentStack.getCount() < currentStack.getMaxStackSize()) {
-                if (Helper.compareTags(currentStack, trackedStack)) {
-                    return Pair.of(slotId, currentStack);
+            if (isStackable && ForgeRegistries.ITEMS.getValue(new ResourceLocation(slotNBT.getString("id"))) == trackedStack.getItem()) {
+                ItemStack currentStack = ItemStack.read(slotNBT);
+                if (currentStack.getCount() < trackedStack.getMaxStackSize()) {
+                    if (Helper.compareTags(currentStack, trackedStack)) {
+                        return Pair.of(slotId, currentStack);
+                    }
                 }
             }
         }
