@@ -6,8 +6,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
-import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.item.TravelBagItem;
 
 import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
@@ -19,7 +17,6 @@ public class ModItems {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
-        // TODO provisory
-        event.getRegistry().register((SupportMods.TOMBSTONE.isLoaded() ? CompatibilityTombstone.INSTANCE.getTravelBag() : new TravelBagItem()).setRegistryName(MOD_ID, "travel_bag"));
+        event.getRegistry().register(new TravelBagItem().setRegistryName(MOD_ID, "travel_bag"));
     }
 }

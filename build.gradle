@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
-version = '1.0.4'
+version = '1.0.5'
 group = 'ovh.corail'
 archivesBaseName = 'travel_bag'
 
@@ -22,8 +22,8 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.markers', '' //SCAN,REGISTRIES,REGISTRYDUMP
+            property 'forge.logging.console.level', 'info'
             mods {
                 travel_bag {
                     source sourceSets.main
@@ -32,8 +32,8 @@ minecraft {
         }
         server {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.markers', '' //SCAN,REGISTRIES,REGISTRYDUMP
+            property 'forge.logging.console.level', 'info'
             mods {
                 travel_bag {
                     source sourceSets.main
@@ -49,12 +49,12 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.55'
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.24")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.24:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10")
-    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10:api")
-    compileOnly files("modlib/tombstone-4.1.0-api.jar")
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.102'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
+    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
+    compileOnly files("modlib/tombstone-4.1.1-1.14.4-api.jar")
 }
 
 jar {

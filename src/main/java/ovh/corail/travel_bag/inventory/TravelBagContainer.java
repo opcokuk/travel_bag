@@ -13,13 +13,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.inventory.slot.GluttonySlot;
 import ovh.corail.travel_bag.inventory.slot.LockedSlot;
 import ovh.corail.travel_bag.inventory.slot.TravelBagSlot;
-import ovh.corail.travel_bag.item.TravelBagItem;
 import ovh.corail.travel_bag.registry.ModContainers;
-import ovh.corail.travel_bag.registry.ModItems;
 
 public class TravelBagContainer extends Container {
     private static final int SLOT_SIZE = 18;
@@ -34,7 +33,7 @@ public class TravelBagContainer extends Container {
     public TravelBagContainer(ContainerType<? extends TravelBagContainer> containerType, int windowId, PlayerInventory playerInventory) {
         super(containerType, windowId);
         this.stack = playerInventory.player.getHeldItemMainhand();
-        this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && this.stack.getItem() == ModItems.TRAVEL_BAG && ((TravelBagItem) ModItems.TRAVEL_BAG).isEnchantedBag(this.stack);
+        this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(this.stack);
         this.handler = this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ItemStackHandler(MAX_SLOT_ID));
         this.LINE_MAX = 9 + (this.isEnchanted ? 4 : 0);
         addAllSlots(playerInventory);

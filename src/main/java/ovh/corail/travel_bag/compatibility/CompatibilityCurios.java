@@ -1,6 +1,5 @@
 package ovh.corail.travel_bag.compatibility;
 
-import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.common.capabilities.Capability;
@@ -11,8 +10,6 @@ import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.ICurio;
 import top.theillusivec4.curios.api.capability.ICurioItemHandler;
 import top.theillusivec4.curios.api.imc.CurioIMCMessage;
-
-import javax.annotation.Nullable;
 
 public class CompatibilityCurios {
     public static final CompatibilityCurios INSTANCE = new CompatibilityCurios();
@@ -27,11 +24,8 @@ public class CompatibilityCurios {
         InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_ICON, () -> new Tuple<>("bag", EMPTY_BAG));
     }
 
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ITEM) {
-            return LazyOptional.of(TravelBagCuriosCap::new).cast();
-        }
-        return LazyOptional.empty();
+    public <T> LazyOptional<T> getCuriosCapability(Capability<T> cap) {
+        return ITEM != null && cap == ITEM ? LazyOptional.of(TravelBagCuriosCap::new).cast() : LazyOptional.empty();
     }
 
     public class TravelBagCuriosCap implements ICurio {

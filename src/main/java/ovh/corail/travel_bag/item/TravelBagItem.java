@@ -44,6 +44,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
+
 public class TravelBagItem extends Item implements INamedContainerProvider {
 
     public TravelBagItem() {
@@ -76,7 +78,8 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
             return;
         }
         int speed = Math.max(20, TravelBagConfig.general.gluttonySlotSpeed.get());
-        if (!isEnchantedBag(stack) || !(entity instanceof PlayerEntity) || entity.world.isRemote || entity.ticksExisted % speed != 0) {
+        boolean isEnchantedBag = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
+        if (!isEnchantedBag || !(entity instanceof PlayerEntity) || entity.world.isRemote || entity.ticksExisted % speed != 0) {
             return;
         }
         ServerPlayerEntity player = (ServerPlayerEntity) entity;
@@ -225,8 +228,17 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
         return super.onItemRightClick(world, player, hand);
     }
 
-    public boolean isEnchantedBag(ItemStack stack) {
-        return false;
+    @Override
+    public ITextComponent getDisplayName(ItemStack stack) {
+        ITextComponent displayName = super.getDisplayName(stack);
+        boolean isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
+        return isEnchanted ? new TranslationTextComponent(MOD_ID + ".enchanted_item", displayName) : displayName;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
     }
 
     @Override
@@ -237,12 +249,6 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
     @Override
     public int getItemEnchantability() {
         return 10;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public boolean hasEffect(ItemStack stack) {
-        return false;
     }
 
     @Override
@@ -286,8 +292,11 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 return LazyOptional.of(() -> handler).cast();
             }
-            if (SupportMods.CURIOS.isLoaded()) {
-                return CompatibilityCurios.INSTANCE.getCapability(cap, direction);
+            if (SupportMods.CURIOS.isLoaded() && cap == CompatibilityCurios.ITEM) {
+                return CompatibilityCurios.INSTANCE.getCuriosCapability(cap);
+            }
+            if (SupportMods.TOMBSTONE.isLoaded() && cap == CompatibilityTombstone.SOUL_CONSUMER_CAPABILITY) {
+                return CompatibilityTombstone.INSTANCE.getTravelBagCapability(cap);
             }
             return LazyOptional.empty();
         }
