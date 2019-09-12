@@ -6,8 +6,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import javax.annotation.Nonnull;
-
 @SuppressWarnings("FieldCanBeLocal")
 public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiable {
     private final NonNullList<ItemStack> stacks;
@@ -23,15 +21,13 @@ public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiab
     }
 
     @Override
-    @Nonnull
     public ItemStack getStackInSlot(int slot) {
         validateSlotIndex(slot);
         return this.stacks.get(slot);
     }
 
     @Override
-    @Nonnull
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;
         }
@@ -63,7 +59,6 @@ public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiab
     }
 
     @Override
-    @Nonnull
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (amount == 0) {
             return ItemStack.EMPTY;
@@ -95,12 +90,12 @@ public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiab
         return MAX_STACKSIZE;
     }
 
-    protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+    protected int getStackLimit(int slot, ItemStack stack) {
         return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+    public boolean isItemValid(int slot, ItemStack stack) {
         return true;
     }
 
@@ -115,7 +110,7 @@ public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiab
     }
 
     @Override
-    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+    public void setStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
         this.stacks.set(slot, stack);
         onContentsChanged(slot);

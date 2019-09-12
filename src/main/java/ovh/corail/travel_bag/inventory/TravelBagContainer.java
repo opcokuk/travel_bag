@@ -49,8 +49,8 @@ public class TravelBagContainer extends Container {
         CompoundNBT tag = this.stack.getOrCreateTag();
         ListNBT inventList = new ListNBT();
         for (int slot = 0; slot < this.handler.getSlots(); slot++) {
-            if (!this.handler.getStackInSlot(slot).isEmpty()) {
-                ItemStack stack = this.handler.extractItem(slot, this.handler.getSlotLimit(slot), false);
+            ItemStack stack = this.handler.getStackInSlot(slot);
+            if (!stack.isEmpty()) {
                 CompoundNBT itemTag = stack.serializeNBT();
                 itemTag.putInt("Slot", slot);
                 inventList.add(itemTag);
