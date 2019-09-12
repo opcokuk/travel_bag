@@ -28,13 +28,13 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import ovh.corail.travel_bag.compatibility.CompatibilityCurios;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.config.TravelBagConfig;
 import ovh.corail.travel_bag.helper.Helper;
+import ovh.corail.travel_bag.inventory.ContainerStackHandler;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.registry.ModTabs;
 
@@ -275,16 +275,13 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
     @Override
     @Nullable
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-        return new CapProvider(stack.getShareTag());
+        return new CapProvider();
     }
 
     public static class CapProvider implements ICapabilityProvider {
-        private final ItemStackHandler handler = new ItemStackHandler(TravelBagContainer.MAX_SLOT_ID);
+        private final ContainerStackHandler handler = new ContainerStackHandler(TravelBagContainer.MAX_SLOT_ID);
 
-        CapProvider(@Nullable CompoundNBT nbt) {
-            if (nbt != null && nbt.contains("custom_inventory", Constants.NBT.TAG_COMPOUND)) {
-                this.handler.deserializeNBT(nbt.getCompound("custom_inventory"));
-            }
+        CapProvider() {
         }
 
         @Override

@@ -11,6 +11,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
@@ -34,7 +35,7 @@ public class TravelBagContainer extends Container {
         super(containerType, windowId);
         this.stack = playerInventory.player.getHeldItemMainhand();
         this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(this.stack);
-        this.handler = this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ItemStackHandler(MAX_SLOT_ID));
+        this.handler = this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ContainerStackHandler(MAX_SLOT_ID));
         this.LINE_MAX = 9 + (this.isEnchanted ? 4 : 0);
         addAllSlots(playerInventory);
     }
@@ -48,8 +49,8 @@ public class TravelBagContainer extends Container {
         CompoundNBT tag = this.stack.getOrCreateTag();
         ListNBT inventList = new ListNBT();
         for (int slot = 0; slot < this.handler.getSlots(); slot++) {
-            ItemStack stack = this.handler.getStackInSlot(slot);
-            if (!stack.isEmpty()) {
+            if (!this.handler.getStackInSlot(slot).isEmpty()) {
+                ItemStack stack = this.handler.extractItem(slot, this.handler.getSlotLimit(slot), false);
                 CompoundNBT itemTag = stack.serializeNBT();
                 itemTag.putInt("Slot", slot);
                 inventList.add(itemTag);
@@ -118,7 +119,7 @@ public class TravelBagContainer extends Container {
             ListNBT inventList = nbt.getList("custom_inventory", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < inventList.size(); i++) {
                 CompoundNBT tag = inventList.getCompound(i);
-                ((ItemStackHandler) this.handler).setStackInSlot(tag.getInt("Slot"), ItemStack.read(tag));
+                ((IItemHandlerModifiable) this.handler).setStackInSlot(tag.getInt("Slot"), ItemStack.read(tag));
             }
         }
         // player slots
