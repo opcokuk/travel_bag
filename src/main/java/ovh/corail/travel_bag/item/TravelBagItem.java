@@ -62,12 +62,12 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
         if (world == null) {
             return;
         }
-        list.add(new TranslationTextComponent(getTranslationKey() + ".desc").setStyle(StyleType.TOOLTIP_DESC.getStyle()));
+        list.add(new TranslationTextComponent(getTranslationKey() + ".desc").setStyle(StyleType.TOOLTIP_DESC));
         if (SupportMods.TOMBSTONE.isLoaded() && !TravelBagConfig.general.disableEnchantedTravelBag.get()) {
             if (!CompatibilityTombstone.INSTANCE.isEnchantedBag(stack)) {
-                list.add(new TranslationTextComponent(getTranslationKey() + ".enchant").setStyle(StyleType.TOOLTIP_USE.getStyle()));
+                list.add(new TranslationTextComponent(getTranslationKey() + ".enchant").setStyle(StyleType.TOOLTIP_USE));
             } else if (!TravelBagConfig.general.disableGluttonySlot.get() && !CompatibilityTombstone.INSTANCE.hasGluttony(Minecraft.getInstance().player)) {
-                list.add(new TranslationTextComponent(getTranslationKey() + ".gluttony").setStyle(StyleType.TOOLTIP_USE.getStyle()));
+                list.add(new TranslationTextComponent(getTranslationKey() + ".gluttony").setStyle(StyleType.TOOLTIP_USE));
             }
         }
     }

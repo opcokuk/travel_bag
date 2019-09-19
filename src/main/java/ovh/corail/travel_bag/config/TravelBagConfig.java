@@ -1,12 +1,10 @@
 package ovh.corail.travel_bag.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
 import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
 
-@Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class TravelBagConfig {
     public static class General {
         public final ForgeConfigSpec.ConfigValue<Boolean> disableEnchantedTravelBag;
