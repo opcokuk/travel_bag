@@ -21,6 +21,8 @@ import ovh.corail.tombstone.api.magic.ISoulConsumer;
 import ovh.corail.travel_bag.config.TravelBagConfig;
 import ovh.corail.travel_bag.registry.ModItems;
 
+import javax.annotation.Nullable;
+
 import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
 
 public class CompatibilityTombstone {
@@ -72,8 +74,8 @@ public class CompatibilityTombstone {
         return PLAYER_CAPABILITY != null ? player.getCapability(PLAYER_CAPABILITY, null) : LazyOptional.empty();
     }
 
-    public boolean hasGluttony(PlayerEntity player) {
-        return travel_bag_perk != null && getPlayerCapability(player).map(cap -> cap.getPerkLevel(player, travel_bag_perk) > 0).orElse(false);
+    public boolean hasGluttony(@Nullable PlayerEntity player) {
+        return travel_bag_perk != null && player != null && getPlayerCapability(player).map(cap -> cap.getPerkLevel(player, travel_bag_perk) > 0).orElse(false);
     }
 
     public void register() {
@@ -90,7 +92,7 @@ public class CompatibilityTombstone {
 
             @Override
             public boolean isDisabled() {
-                return TravelBagConfig.general.isGluttonySlotDisabled();
+                return TravelBagConfig.general.disableGluttonySlot.get();
             }
 
             @Override

@@ -1,6 +1,9 @@
 {
   "travel_bag.itemGroup.mainTab": "Travel Bag",
   "item.travel_bag.travel_bag": "Travel Bag",
+  "item.travel_bag.travel_bag.desc": "A travel bag for storing your items",
+  "item.travel_bag.travel_bag.enchant": "Right click on a grave's soul to increase the bag size",
+  "item.travel_bag.travel_bag.gluttony": "Unlock the perk Gluttony to get a special slot",
   "travel_bag.enchanted_item": "Enchanted %s",
   "travel_bag.message.enchant_success": "The bag has been enchanted",
   "travel_bag.message.enchant_failed": "This feature is disabled",
@@ -10,8 +13,6 @@
   "travel_bag.config.disable_gluttony_slot.tooltip": "Disable the Gluttony slot",
   "travel_bag.config.gluttony_speed": "Gluttony slot speed",
   "travel_bag.config.gluttony_speed.tooltip": "Speed of extraction in ticks of the Gluttony slot",
-  "travel_bag.config.blacklist_items": "Blacklisted Items",
-  "travel_bag.config.blacklist_items.tooltip": "Items that can not be transferred in the Travel Bag",
   "curios.identifier.bag": "Bag",
   "tombstone.perk.travel_bag": "Travel Bag",
   "tombstone.perk.travel_bag.desc": "improves the enchanted travel bag",

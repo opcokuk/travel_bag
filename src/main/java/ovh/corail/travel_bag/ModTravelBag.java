@@ -17,7 +17,6 @@ import ovh.corail.travel_bag.config.TravelBagConfig;
 import ovh.corail.travel_bag.gui.TravelBagScreen;
 import ovh.corail.travel_bag.item.TravelBagItem;
 import ovh.corail.travel_bag.network.TakeAllPacket;
-import ovh.corail.travel_bag.network.UpdateClient;
 import ovh.corail.travel_bag.registry.ModContainers;
 import ovh.corail.travel_bag.registry.ModItems;
 
@@ -30,9 +29,8 @@ public class ModTravelBag {
     public static SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MOD_ID, "travel_bag_channel"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 
     public ModTravelBag() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TravelBagConfig.GENERAL_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TravelBagConfig.GENERAL_SPEC);
         ModTravelBag.HANDLER.registerMessage(0, TakeAllPacket.class, TakeAllPacket::toBytes, TakeAllPacket::fromBytes, TakeAllPacket.Handler::handle);
-        ModTravelBag.HANDLER.registerMessage(1, UpdateClient.class, UpdateClient::toBytes, UpdateClient::fromBytes, UpdateClient.Handler::handle);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientInit);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         if (SupportMods.TOMBSTONE.isLoaded()) {

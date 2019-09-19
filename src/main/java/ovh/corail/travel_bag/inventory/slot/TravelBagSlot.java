@@ -3,7 +3,7 @@ package ovh.corail.travel_bag.inventory.slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import ovh.corail.travel_bag.config.TravelBagConfig;
+import ovh.corail.travel_bag.registry.ModTags;
 
 public class TravelBagSlot extends SlotItemHandler {
     public int timeInUse = 0;
@@ -14,7 +14,7 @@ public class TravelBagSlot extends SlotItemHandler {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return TravelBagConfig.isAllowedInBag(stack) && super.isItemValid(stack);
+        return !stack.getItem().isIn(ModTags.Items.TRAVEL_BAG_DENIED_ITEMS) && super.isItemValid(stack);
     }
 
     @Override

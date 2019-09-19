@@ -16,7 +16,7 @@ Provides somes items "Travel bags" to store your items in, with some behaviors w
 [[dependencies.travel_bag]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[28.0.55,)" #mandatory
+    versionRange="[28.1.10,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.travel_bag]]

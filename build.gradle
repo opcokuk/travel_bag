@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
-version = '1.0.5'
+version = '1.0.6'
 group = 'ovh.corail'
 archivesBaseName = 'travel_bag'
 
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.102'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.10'
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25")
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
@@ -63,7 +63,7 @@ jar {
             "Specification-Title": "Travel Bag",
             "Specification-Vendor": "Corail31",
             "Specification-Version": "1",
-            "Implementation-Title": project.name,
+            "Implementation-Title": "Travel Bag",
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"Corail31",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")

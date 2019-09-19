@@ -1,6 +1,9 @@
 {
   "travel_bag.itemGroup.mainTab": "Sac de Voyage",
   "item.travel_bag.travel_bag": "Sac de Voyage",
+  "item.travel_bag.travel_bag.desc": "Un sac de voyage pour ranger vos objets",
+  "item.travel_bag.travel_bag.enchant": "Clic droit sur une âme de tombe pour augmenter la taille du sac",
+  "item.travel_bag.travel_bag.gluttony": "Déverrouille l'avantage Gourmandise pour obtenir un slot spécial",
   "travel_bag.enchanted_item": "%s Enchanté",
   "travel_bag.message.enchant_success": "Le sac a été enchanté",
   "travel_bag.message.enchant_failed": "Cette fonctionnalité est désactivée",
@@ -10,8 +13,6 @@
   "travel_bag.config.disable_gluttony_slot.tooltip": "Désactive le slot Gourmandise",
   "travel_bag.config.gluttony_speed": "Vitesse du slot Gourmandise",
   "travel_bag.config.gluttony_speed.tooltip": "Vitesse d'extraction en ticks du slot Gourmandise",
-  "travel_bag.config.blacklist_items": "Objets blacklistés",
-  "travel_bag.config.blacklist_items.tooltip": "Les objets qui ne peuvent être transférés dans le Sac de Voyage",
   "curios.identifier.bag": "Sac",
   "tombstone.perk.travel_bag": "Sac de Voyage",
   "tombstone.perk.travel_bag.desc": "améliore le sac de voyage enchanté",

@@ -1,6 +1,9 @@
 {
   "travel_bag.itemGroup.mainTab": "旅行背包",
   "item.travel_bag.travel_bag": "旅行背包",
+  "item.travel_bag.travel_bag.desc": "用于存放物品的旅行包",
+  "item.travel_bag.travel_bag.enchant": "右键单击墓碑以增加袋子的大小",
+  "item.travel_bag.travel_bag.gluttony": "解锁暴饮暴食以获得一个特殊的插槽",
   "travel_bag.enchanted_item": "附魔 %s",
   "travel_bag.message.enchant_success": "这个背包已经附魔了",
   "travel_bag.message.enchant_failed": "此功能已禁用",
@@ -10,8 +13,6 @@
   "travel_bag.config.disable_gluttony_slot.tooltip": "禁用贪心槽",
   "travel_bag.config.gluttony_speed": "美食槽速度",
   "travel_bag.config.gluttony_speed.tooltip": "贪婪槽的蜱的提取速度",
-  "travel_bag.config.blacklist_items": "列入黑名单的项目",
-  "travel_bag.config.blacklist_items.tooltip": "无法在旅行包中转移的物品",
   "curios.identifier.bag": "背包",
   "tombstone.perk.travel_bag": "旅行包",
   "tombstone.perk.travel_bag.desc": "改善魔法旅行包",

@@ -1,5 +1,7 @@
 package ovh.corail.travel_bag.item;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,12 +36,14 @@ import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.config.TravelBagConfig;
 import ovh.corail.travel_bag.helper.Helper;
+import ovh.corail.travel_bag.helper.StyleType;
 import ovh.corail.travel_bag.inventory.ContainerStackHandler;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.registry.ModTabs;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,6 +54,22 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
 
     public TravelBagItem() {
         super(new Properties().group(ModTabs.mainTab).maxStackSize(1));
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flagIn) {
+        if (world == null) {
+            return;
+        }
+        list.add(new TranslationTextComponent(getTranslationKey() + ".desc").setStyle(StyleType.TOOLTIP_DESC.getStyle()));
+        if (SupportMods.TOMBSTONE.isLoaded() && !TravelBagConfig.general.disableEnchantedTravelBag.get()) {
+            if (!CompatibilityTombstone.INSTANCE.isEnchantedBag(stack)) {
+                list.add(new TranslationTextComponent(getTranslationKey() + ".enchant").setStyle(StyleType.TOOLTIP_USE.getStyle()));
+            } else if (!TravelBagConfig.general.disableGluttonySlot.get() && !CompatibilityTombstone.INSTANCE.hasGluttony(Minecraft.getInstance().player)) {
+                list.add(new TranslationTextComponent(getTranslationKey() + ".gluttony").setStyle(StyleType.TOOLTIP_USE.getStyle()));
+            }
+        }
     }
 
     @Override
@@ -74,7 +94,7 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean isSelected) {
-        if (TravelBagConfig.general.isGluttonySlotDisabled()) {
+        if (TravelBagConfig.general.disableGluttonySlot.get()) {
             return;
         }
         int speed = Math.max(20, TravelBagConfig.general.gluttonySlotSpeed.get());
