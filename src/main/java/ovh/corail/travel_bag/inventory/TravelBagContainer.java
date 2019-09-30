@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -44,6 +45,10 @@ public class TravelBagContainer extends Container {
 
     public TravelBagContainer(int windowId, PlayerInventory playerInventory, BagPlace place) {
         this(ModContainers.TRAVEL_BAG, windowId, playerInventory, place);
+    }
+
+    public TravelBagContainer(int windowId, PlayerInventory playerInventory, int bagPlaceId) {
+        this(ModContainers.TRAVEL_BAG, windowId, playerInventory, BagPlace.values()[MathHelper.clamp(bagPlaceId, 0, BagPlace.values().length - 1)]);
     }
 
     public TravelBagContainer(int windowId, PlayerInventory playerInventory) {

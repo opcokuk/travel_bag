@@ -27,6 +27,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -39,6 +40,7 @@ import ovh.corail.travel_bag.helper.Helper;
 import ovh.corail.travel_bag.helper.StyleType;
 import ovh.corail.travel_bag.inventory.ContainerStackHandler;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
+import ovh.corail.travel_bag.inventory.TravelBagContainer.BagPlace;
 import ovh.corail.travel_bag.registry.ModTabs;
 
 import javax.annotation.Nullable;
@@ -89,7 +91,7 @@ public class TravelBagItem extends Item {
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return !oldStack.equals(newStack) || getColor(oldStack, 0) != getColor(newStack, 0);
+        return oldStack.getItem() != newStack.getItem() || getColor(oldStack, 0) != getColor(newStack, 0);
     }
 
     @Override
@@ -242,7 +244,7 @@ public class TravelBagItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         if (!player.world.isRemote && hand == Hand.MAIN_HAND) {
-            player.openContainer(new INamedContainerProvider() {
+            NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                 @Override
                 public ITextComponent getDisplayName() {
                     return new TranslationTextComponent(getTranslationKey());
@@ -250,9 +252,9 @@ public class TravelBagItem extends Item {
 
                 @Override
                 public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity player) {
-                    return new TravelBagContainer(windowId, playerInventory);
+                    return new TravelBagContainer(windowId, playerInventory, BagPlace.MAIN_HAND);
                 }
-            });
+            }, buf -> buf.writeInt(0));
             return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
         }
         return super.onItemRightClick(world, player, hand);

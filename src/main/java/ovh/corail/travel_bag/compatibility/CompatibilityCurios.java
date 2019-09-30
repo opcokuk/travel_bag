@@ -2,6 +2,7 @@ package ovh.corail.travel_bag.compatibility;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.network.NetworkHooks;
 import ovh.corail.travel_bag.ModTravelBag;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.inventory.TravelBagContainer.BagPlace;
@@ -47,7 +49,7 @@ public class CompatibilityCurios {
             } else {
                 ItemStack stack = handler.getStackInSlot(isFirstSlot ? 0 : 1);
                 if (stack.getItem() == ModItems.TRAVEL_BAG) {
-                    player.openContainer(new INamedContainerProvider() {
+                    NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                         @Override
                         public ITextComponent getDisplayName() {
                             return stack.getDisplayName();
@@ -57,7 +59,7 @@ public class CompatibilityCurios {
                         public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity player) {
                             return new TravelBagContainer(windowId, playerInventory, isFirstSlot ? BagPlace.CURIOS_BAG_0 : BagPlace.CURIOS_BAG_1);
                         }
-                    });
+                    }, buf -> buf.writeInt(isFirstSlot ? 1 : 2));
                 }
             }
         }

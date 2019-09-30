@@ -30,7 +30,7 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
 
     public TravelBagScreen(TravelBagContainer travelBagContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(travelBagContainer, playerInventory, title);
-        CompoundNBT tag = Helper.getContainerBagStack(playerInventory.player).getTag();
+        CompoundNBT tag = Helper.getContainerBagStack(playerInventory.player, travelBagContainer.getBagPlace()).getTag();
         this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && tag != null && tag.getBoolean("has_soul");
         this.xSize = this.isEnchanted ? 246 : 176;
         this.ySize = 220;
