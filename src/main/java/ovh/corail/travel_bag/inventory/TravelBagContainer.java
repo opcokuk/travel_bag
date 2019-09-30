@@ -10,12 +10,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
+import ovh.corail.travel_bag.helper.Helper;
 import ovh.corail.travel_bag.inventory.slot.GluttonySlot;
 import ovh.corail.travel_bag.inventory.slot.LockedSlot;
 import ovh.corail.travel_bag.inventory.slot.TravelBagSlot;
@@ -27,21 +26,32 @@ public class TravelBagContainer extends Container {
     public static final int GLUTTONY_SLOT_ID = 78;
     public static final int MAX_SLOT_ID = GLUTTONY_SLOT_ID + 1;
     private final int LINE_MAX, ROW_MAX = 6;
-    private final IItemHandler handler;
+    private final IItemHandlerModifiable handler;
     private final boolean isEnchanted;
     private final ItemStack stack;
+    public enum BagPlace { MAIN_HAND, CURIOS_BAG_0, CURIOS_BAG_1 }
+    private final BagPlace bagPlace;
 
-    public TravelBagContainer(ContainerType<? extends TravelBagContainer> containerType, int windowId, PlayerInventory playerInventory) {
+    protected TravelBagContainer(ContainerType<? extends TravelBagContainer> containerType, int windowId, PlayerInventory playerInventory, BagPlace bagPlace) {
         super(containerType, windowId);
-        this.stack = playerInventory.player.getHeldItemMainhand();
+        this.bagPlace = bagPlace;
+        this.stack = Helper.getContainerBagStack(playerInventory.player, bagPlace);
         this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(this.stack);
-        this.handler = this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ContainerStackHandler(MAX_SLOT_ID));
+        this.handler = (IItemHandlerModifiable) this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ContainerStackHandler(MAX_SLOT_ID));
         this.LINE_MAX = 9 + (this.isEnchanted ? 4 : 0);
         addAllSlots(playerInventory);
     }
 
+    public TravelBagContainer(int windowId, PlayerInventory playerInventory, BagPlace place) {
+        this(ModContainers.TRAVEL_BAG, windowId, playerInventory, place);
+    }
+
     public TravelBagContainer(int windowId, PlayerInventory playerInventory) {
-        this(ModContainers.TRAVEL_BAG, windowId, playerInventory);
+        this(ModContainers.TRAVEL_BAG, windowId, playerInventory, BagPlace.MAIN_HAND);
+    }
+
+    public BagPlace getBagPlace() {
+        return this.bagPlace;
     }
 
     @Override
@@ -93,7 +103,7 @@ public class TravelBagContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {
-        return player.getHeldItemMainhand().equals(this.stack);
+        return Helper.getContainerBagStack(player).equals(this.stack);
     }
 
     @Override
@@ -114,12 +124,12 @@ public class TravelBagContainer extends Container {
         }
         addSlot(new GluttonySlot(this.handler, GLUTTONY_SLOT_ID, MIN_START_X + 5, 142, playerInventory.player));
         // fill bag slots
-        CompoundNBT nbt = playerInventory.player.getHeldItemMainhand().getTag();
+        CompoundNBT nbt = this.stack.getTag();
         if (nbt != null && nbt.contains("custom_inventory", Constants.NBT.TAG_LIST)) {
             ListNBT inventList = nbt.getList("custom_inventory", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < inventList.size(); i++) {
                 CompoundNBT tag = inventList.getCompound(i);
-                ((IItemHandlerModifiable) this.handler).setStackInSlot(tag.getInt("Slot"), ItemStack.read(tag));
+                this.handler.setStackInSlot(tag.getInt("Slot"), ItemStack.read(tag));
             }
         }
         // player slots

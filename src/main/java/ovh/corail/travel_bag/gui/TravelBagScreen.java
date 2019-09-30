@@ -13,6 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import ovh.corail.travel_bag.ModTravelBag;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
+import ovh.corail.travel_bag.helper.Helper;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.inventory.slot.TravelBagSlot;
 import ovh.corail.travel_bag.network.TakeAllPacket;
@@ -28,8 +29,8 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
     private boolean isInit = true;
 
     public TravelBagScreen(TravelBagContainer travelBagContainer, PlayerInventory playerInventory, ITextComponent title) {
-        super(travelBagContainer, playerInventory, playerInventory.player.getHeldItemMainhand().getDisplayName());
-        CompoundNBT tag = playerInventory.player.getHeldItemMainhand().getTag();
+        super(travelBagContainer, playerInventory, title);
+        CompoundNBT tag = Helper.getContainerBagStack(playerInventory.player).getTag();
         this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && tag != null && tag.getBoolean("has_soul");
         this.xSize = this.isEnchanted ? 246 : 176;
         this.ySize = 220;

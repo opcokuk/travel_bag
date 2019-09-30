@@ -1,4 +1,5 @@
 {
+  "travel_bag.lang.version": "1.0.0",
   "travel_bag.itemGroup.mainTab": "Sac de Voyage",
   "item.travel_bag.travel_bag": "Sac de Voyage",
   "item.travel_bag.travel_bag.desc": "Un sac de voyage pour ranger vos objets",
@@ -13,6 +14,8 @@
   "travel_bag.config.disable_gluttony_slot.tooltip": "Désactive le slot Gourmandise",
   "travel_bag.config.gluttony_speed": "Vitesse du slot Gourmandise",
   "travel_bag.config.gluttony_speed.tooltip": "Vitesse d'extraction en ticks du slot Gourmandise",
+  "travel_bag.keybind.curios_bag_0" : "Ouvre le sac du slot 0 de Curios",
+  "travel_bag.keybind.curios_bag_1": "Ouvre le sac du slot 1 de Curios",
   "curios.identifier.bag": "Sac",
   "tombstone.perk.travel_bag": "Sac de Voyage",
   "tombstone.perk.travel_bag.desc": "améliore le sac de voyage enchanté",

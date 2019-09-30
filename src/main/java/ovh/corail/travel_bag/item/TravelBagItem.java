@@ -50,7 +50,7 @@ import java.util.stream.IntStream;
 
 import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
 
-public class TravelBagItem extends Item implements INamedContainerProvider {
+public class TravelBagItem extends Item {
 
     public TravelBagItem() {
         super(new Properties().group(ModTabs.mainTab).maxStackSize(1));
@@ -89,7 +89,7 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return oldStack.getItem() != newStack.getItem() || getColor(oldStack, 0) != getColor(newStack, 0);
+        return !oldStack.equals(newStack) || getColor(oldStack, 0) != getColor(newStack, 0);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
         if (!SupportMods.TOMBSTONE.isLoaded() || !CompatibilityTombstone.INSTANCE.hasGluttony(player)) {
             return;
         }
-        boolean isBagContainer = player.getHeldItemMainhand().equals(stack) && player.openContainer instanceof TravelBagContainer;
+        boolean isBagContainer = Helper.getContainerBagStack(player).equals(stack) && player.openContainer instanceof TravelBagContainer;
         ItemStack gluttonyStack = getGluttonyStack(stack, isBagContainer);
         if (gluttonyStack.isEmpty()) {
             return;
@@ -242,7 +242,17 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         if (!player.world.isRemote && hand == Hand.MAIN_HAND) {
-            player.openContainer(this);
+            player.openContainer(new INamedContainerProvider() {
+                @Override
+                public ITextComponent getDisplayName() {
+                    return new TranslationTextComponent(getTranslationKey());
+                }
+
+                @Override
+                public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity player) {
+                    return new TravelBagContainer(windowId, playerInventory);
+                }
+            });
             return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
         }
         return super.onItemRightClick(world, player, hand);
@@ -269,17 +279,6 @@ public class TravelBagItem extends Item implements INamedContainerProvider {
     @Override
     public int getItemEnchantability() {
         return 10;
-    }
-
-    @Override
-    public ITextComponent getDisplayName() {
-        return new TranslationTextComponent(getTranslationKey());
-    }
-
-    @Override
-    @Nullable
-    public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new TravelBagContainer(windowId, playerInventory);
     }
 
     @Override

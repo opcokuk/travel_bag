@@ -6,6 +6,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import ovh.corail.travel_bag.helper.Helper;
 import ovh.corail.travel_bag.registry.ModItems;
 
 import java.util.function.Supplier;
@@ -27,7 +28,7 @@ public class TakeAllPacket {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity player = ctx.get().getSender();
                 if (player != null) {
-                    ItemStack heldStack = player.getHeldItemMainhand();
+                    ItemStack heldStack = Helper.getContainerBagStack(player);
                     if (heldStack.getItem() == ModItems.TRAVEL_BAG) {
                         heldStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(cap -> {
                             for (int slot = 0; slot < cap.getSlots(); slot++) {

@@ -2,12 +2,11 @@ package ovh.corail.travel_bag.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class ContainerStackHandler implements IItemHandler, IItemHandlerModifiable {
+public class ContainerStackHandler implements IItemHandlerModifiable {
     private final NonNullList<ItemStack> stacks;
     private final int MAX_STACKSIZE = 64;
 
