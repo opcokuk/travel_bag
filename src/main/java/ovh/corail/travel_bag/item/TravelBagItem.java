@@ -66,11 +66,12 @@ public class TravelBagItem extends Item {
         }
         list.add(new TranslationTextComponent(getTranslationKey() + ".desc").setStyle(StyleType.TOOLTIP_DESC));
         if (SupportMods.TOMBSTONE.isLoaded() && !TravelBagConfig.general.disableEnchantedTravelBag.get()) {
-            if (!CompatibilityTombstone.INSTANCE.isEnchantedBag(stack)) {
+            // TODO disabled
+            /*if (!CompatibilityTombstone.INSTANCE.isEnchantedBag(stack)) {
                 list.add(new TranslationTextComponent(getTranslationKey() + ".enchant").setStyle(StyleType.TOOLTIP_USE));
             } else if (!TravelBagConfig.general.disableGluttonySlot.get() && !CompatibilityTombstone.INSTANCE.hasPerkLevel(Minecraft.getInstance().player, 1)) {
                 list.add(new TranslationTextComponent(getTranslationKey() + ".gluttony").setStyle(StyleType.TOOLTIP_USE));
-            }
+            }*/
         }
     }
 
@@ -100,12 +101,12 @@ public class TravelBagItem extends Item {
             return;
         }
         int speed = Math.max(20, TravelBagConfig.general.gluttonySlotSpeed.get());
-        boolean isEnchantedBag = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
+        boolean isEnchantedBag = SupportMods.TOMBSTONE.isLoaded(); // TODO disabled // && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
         if (!isEnchantedBag || !(entity instanceof PlayerEntity) || entity.world.isRemote || entity.ticksExisted % speed != 0) {
             return;
         }
         ServerPlayerEntity player = (ServerPlayerEntity) entity;
-        if (!SupportMods.TOMBSTONE.isLoaded() || !CompatibilityTombstone.INSTANCE.hasPerkLevel(player, 1)) {
+        if (!SupportMods.TOMBSTONE.isLoaded()) { // TODO disabled // || !CompatibilityTombstone.INSTANCE.hasPerkLevel(player, 1)) {
             return;
         }
         boolean isBagContainer = Helper.getContainerBagStack(player).equals(stack) && player.openContainer instanceof TravelBagContainer;
@@ -263,14 +264,14 @@ public class TravelBagItem extends Item {
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
         ITextComponent displayName = super.getDisplayName(stack);
-        boolean isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
+        boolean isEnchanted = SupportMods.TOMBSTONE.isLoaded(); // TODO disabled // && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
         return isEnchanted ? new TranslationTextComponent(MOD_ID + ".enchanted_item", displayName) : displayName;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
+        return SupportMods.TOMBSTONE.isLoaded(); // TODO disabled // && CompatibilityTombstone.INSTANCE.isEnchantedBag(stack);
     }
 
     @Override
@@ -310,12 +311,14 @@ public class TravelBagItem extends Item {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 return LazyOptional.of(() -> handler).cast();
             }
-            if (SupportMods.CURIOS.isLoaded() && cap == CompatibilityCurios.ITEM) {
-                return CompatibilityCurios.INSTANCE.getCuriosCapability(cap);
+            if (SupportMods.CURIOS.isLoaded()) { // TODO disabled // && cap == CompatibilityCurios.ITEM) {
+                //return CompatibilityCurios.INSTANCE.getCuriosCapability(cap);
+                return LazyOptional.empty();
             }
-            if (SupportMods.TOMBSTONE.isLoaded() && cap == CompatibilityTombstone.SOUL_CONSUMER_CAPABILITY) {
+            // TODO disabled
+            /*if (SupportMods.TOMBSTONE.isLoaded() && cap == CompatibilityTombstone.SOUL_CONSUMER_CAPABILITY) {
                 return CompatibilityTombstone.INSTANCE.getTravelBagCapability(cap);
-            }
+            }*/
             return LazyOptional.empty();
         }
     }

@@ -28,7 +28,8 @@ public class OpenCuriosBagPacket {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity player = ctx.get().getSender();
                 if (player != null && SupportMods.CURIOS.isLoaded()) {
-                    CompatibilityCurios.INSTANCE.openBag(player, message.isFirstSlot);
+                    // TODO disabled
+                    //CompatibilityCurios.INSTANCE.openBag(player, message.isFirstSlot);
                 }
             });
             ctx.get().setPacketHandled(true);

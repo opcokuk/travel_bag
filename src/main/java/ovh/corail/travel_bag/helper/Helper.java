@@ -25,7 +25,9 @@ public class Helper {
         if (place == BagPlace.MAIN_HAND) {
             return player.getHeldItemMainhand();
         } else if (SupportMods.CURIOS.isLoaded()) {
-            return CompatibilityCurios.INSTANCE.getCuriosStack(player, place == BagPlace.CURIOS_BAG_0);
+            // TODO disabled
+            //return CompatibilityCurios.INSTANCE.getCuriosStack(player, place == BagPlace.CURIOS_BAG_0);
+            return ItemStack.EMPTY;
         }
         return ItemStack.EMPTY;
     }

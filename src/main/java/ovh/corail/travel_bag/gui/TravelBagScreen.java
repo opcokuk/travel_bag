@@ -1,6 +1,6 @@
 package ovh.corail.travel_bag.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.resources.I18n;
@@ -60,11 +60,11 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color4f(1f, 1f, 1f, 1f);
+        RenderSystem.color4f(1f, 1f, 1f, 1f);
         getMinecraft().getTextureManager().bindTexture(this.isEnchanted ? ENCHANTED_INVENTORY_BACKGROUND : INVENTORY_BACKGROUND);
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
-        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.hasPerkLevel(getMinecraft().player, 1)) {
+        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded()) { // TODO disabled // && CompatibilityTombstone.INSTANCE.hasPerkLevel(getMinecraft().player, 1)) {
             int x = this.guiLeft + 11;
             int y = this.guiTop + 140;
             String langString = I18n.format("tombstone.perk.gluttony");
@@ -73,7 +73,7 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
             fill(x + 1, y + 1, x + 19, y + 19, 0xff000000);
             fillGradient(x + 2, y + 2, x + 18, y + 18, 0xff505050, 0xffc0c0c0);
         }
-        GlStateManager.color4f(1f, 1f, 1f, 1f);
+        RenderSystem.color4f(1f, 1f, 1f, 1f);
         getMinecraft().getTextureManager().bindTexture(ENCHANTED_INVENTORY_BACKGROUND);
         this.container.inventorySlots.stream().filter(slot -> slot instanceof TravelBagSlot).forEach(slot -> {
             TravelBagSlot currentSlot = (TravelBagSlot) slot;

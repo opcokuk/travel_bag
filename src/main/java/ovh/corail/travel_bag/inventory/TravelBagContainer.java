@@ -39,7 +39,7 @@ public class TravelBagContainer extends Container {
         super(containerType, windowId);
         this.bagPlace = bagPlace;
         this.stack = Helper.getContainerBagStack(playerInventory.player, bagPlace);
-        this.isEnchanted = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.isEnchantedBag(this.stack);
+        this.isEnchanted = SupportMods.TOMBSTONE.isLoaded(); // TODO disabled // && CompatibilityTombstone.INSTANCE.isEnchantedBag(this.stack);
         this.handler = (IItemHandlerModifiable) this.stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new ContainerStackHandler(MAX_SLOT_ID));
         this.LINE_MAX = 9 + (this.isEnchanted ? 4 : 0);
         addAllSlots(playerInventory);

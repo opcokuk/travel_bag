@@ -32,7 +32,8 @@ public class ModTravelBag {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientInit);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         if (SupportMods.TOMBSTONE.isLoaded()) {
-            CompatibilityTombstone.INSTANCE.register();
+            // TODO disabled
+            //CompatibilityTombstone.INSTANCE.register();
         }
     }
 
@@ -43,7 +44,8 @@ public class ModTravelBag {
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (SupportMods.CURIOS.isLoaded()) {
-            CompatibilityCurios.INSTANCE.sendIMC();
+            // TODO disabled
+            //CompatibilityCurios.INSTANCE.sendIMC();
         }
     }
 }

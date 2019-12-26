@@ -13,7 +13,7 @@ public class GluttonySlot extends TravelBagSlot {
 
     public GluttonySlot(IItemHandler handler, int index, int xPosition, int yPosition, PlayerEntity player) {
         super(handler, index, xPosition, yPosition);
-        this.hasGluttony = SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.hasPerkLevel(player, 1);
+        this.hasGluttony = SupportMods.TOMBSTONE.isLoaded(); // TODO disabled // && CompatibilityTombstone.INSTANCE.hasPerkLevel(player, 1);
     }
 
     @Override
