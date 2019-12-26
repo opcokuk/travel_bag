@@ -68,7 +68,7 @@ public class TravelBagItem extends Item {
         if (SupportMods.TOMBSTONE.isLoaded() && !TravelBagConfig.general.disableEnchantedTravelBag.get()) {
             if (!CompatibilityTombstone.INSTANCE.isEnchantedBag(stack)) {
                 list.add(new TranslationTextComponent(getTranslationKey() + ".enchant").setStyle(StyleType.TOOLTIP_USE));
-            } else if (!TravelBagConfig.general.disableGluttonySlot.get() && !CompatibilityTombstone.INSTANCE.hasGluttony(Minecraft.getInstance().player)) {
+            } else if (!TravelBagConfig.general.disableGluttonySlot.get() && !CompatibilityTombstone.INSTANCE.hasPerkLevel(Minecraft.getInstance().player, 1)) {
                 list.add(new TranslationTextComponent(getTranslationKey() + ".gluttony").setStyle(StyleType.TOOLTIP_USE));
             }
         }
@@ -105,7 +105,7 @@ public class TravelBagItem extends Item {
             return;
         }
         ServerPlayerEntity player = (ServerPlayerEntity) entity;
-        if (!SupportMods.TOMBSTONE.isLoaded() || !CompatibilityTombstone.INSTANCE.hasGluttony(player)) {
+        if (!SupportMods.TOMBSTONE.isLoaded() || !CompatibilityTombstone.INSTANCE.hasPerkLevel(player, 1)) {
             return;
         }
         boolean isBagContainer = Helper.getContainerBagStack(player).equals(stack) && player.openContainer instanceof TravelBagContainer;

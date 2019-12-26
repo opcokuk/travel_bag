@@ -74,8 +74,8 @@ public class CompatibilityTombstone {
         return PLAYER_CAPABILITY != null ? player.getCapability(PLAYER_CAPABILITY, null) : LazyOptional.empty();
     }
 
-    public boolean hasGluttony(@Nullable PlayerEntity player) {
-        return travel_bag_perk != null && player != null && getPlayerCapability(player).map(cap -> cap.getPerkLevel(player, travel_bag_perk) > 0).orElse(false);
+    public boolean hasPerkLevel(@Nullable PlayerEntity player, int level) {
+        return travel_bag_perk != null && player != null && getPlayerCapability(player).map(cap -> cap.getPerkLevel(player, travel_bag_perk) >= level).orElse(false);
     }
 
     public void register() {

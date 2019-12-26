@@ -21,6 +21,7 @@ import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientEventHandler {
+    private static int COOLDOWN = 0;
     private static KeyBinding keybindCuriosBag1, keybindCuriosBag2;
 
     static {
@@ -35,11 +36,16 @@ public class ClientEventHandler {
         if (event.side == LogicalSide.SERVER || event.phase != TickEvent.Phase.START) {
             return;
         }
+        if (COOLDOWN > 0) {
+            COOLDOWN--;
+            return;
+        }
         boolean isFirst;
         if (SupportMods.CURIOS.isLoaded() && ((isFirst = keybindCuriosBag1.isPressed()) || keybindCuriosBag2.isPressed())) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null && mc.currentScreen == null) {
                 CompatibilityCurios.INSTANCE.openBag(mc.player, isFirst);
+                COOLDOWN = 10;
             }
         }
     }

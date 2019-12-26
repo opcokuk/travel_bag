@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -30,6 +31,7 @@ public class TravelBagContainer extends Container {
     private final IItemHandlerModifiable handler;
     private final boolean isEnchanted;
     private final ItemStack stack;
+
     public enum BagPlace { MAIN_HAND, CURIOS_BAG_0, CURIOS_BAG_1 }
     private final BagPlace bagPlace;
 
@@ -47,12 +49,8 @@ public class TravelBagContainer extends Container {
         this(ModContainers.TRAVEL_BAG, windowId, playerInventory, place);
     }
 
-    public TravelBagContainer(int windowId, PlayerInventory playerInventory, int bagPlaceId) {
-        this(ModContainers.TRAVEL_BAG, windowId, playerInventory, BagPlace.values()[MathHelper.clamp(bagPlaceId, 0, BagPlace.values().length - 1)]);
-    }
-
-    public TravelBagContainer(int windowId, PlayerInventory playerInventory) {
-        this(ModContainers.TRAVEL_BAG, windowId, playerInventory, BagPlace.MAIN_HAND);
+    public TravelBagContainer(int windowId, PlayerInventory playerInventory, PacketBuffer data) {
+        this(windowId, playerInventory, BagPlace.values()[MathHelper.clamp(data.getInt(0), 0, BagPlace.values().length - 1)]);
     }
 
     public BagPlace getBagPlace() {

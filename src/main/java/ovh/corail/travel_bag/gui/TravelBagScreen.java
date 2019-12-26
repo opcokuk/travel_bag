@@ -10,12 +10,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import ovh.corail.travel_bag.ModTravelBag;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.helper.Helper;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.inventory.slot.TravelBagSlot;
+import ovh.corail.travel_bag.network.PacketHandler;
 import ovh.corail.travel_bag.network.TakeAllPacket;
 
 import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
@@ -41,7 +41,7 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
     protected void init() {
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
-        addButton(new ImageButton(this.guiLeft + this.xSize - 20, this.guiTop + 126, 12, 12, 0, 0, 12, ARROW, 12, 12, pressable -> ModTravelBag.HANDLER.sendToServer(new TakeAllPacket())));
+        addButton(new ImageButton(this.guiLeft + this.xSize - 20, this.guiTop + 126, 12, 12, 0, 0, 12, ARROW, 12, 12, pressable -> PacketHandler.sendToServer(new TakeAllPacket())));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
         getMinecraft().getTextureManager().bindTexture(this.isEnchanted ? ENCHANTED_INVENTORY_BACKGROUND : INVENTORY_BACKGROUND);
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
-        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.hasGluttony(getMinecraft().player)) {
+        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.hasPerkLevel(getMinecraft().player, 1)) {
             int x = this.guiLeft + 11;
             int y = this.guiTop + 140;
             String langString = I18n.format("tombstone.perk.gluttony");

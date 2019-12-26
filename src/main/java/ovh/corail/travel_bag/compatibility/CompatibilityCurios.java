@@ -14,10 +14,10 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.network.NetworkHooks;
-import ovh.corail.travel_bag.ModTravelBag;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.inventory.TravelBagContainer.BagPlace;
 import ovh.corail.travel_bag.network.OpenCuriosBagPacket;
+import ovh.corail.travel_bag.network.PacketHandler;
 import ovh.corail.travel_bag.registry.ModItems;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.ICurio;
@@ -45,7 +45,7 @@ public class CompatibilityCurios {
         CurioStackHandler handler = getBagStackHandler(player);
         if (handler != null) {
             if (player.world.isRemote) {
-                ModTravelBag.HANDLER.sendToServer(new OpenCuriosBagPacket(isFirstSlot));
+                PacketHandler.sendToServer(new OpenCuriosBagPacket(isFirstSlot));
             } else {
                 ItemStack stack = handler.getStackInSlot(isFirstSlot ? 0 : 1);
                 if (stack.getItem() == ModItems.TRAVEL_BAG) {
