@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[28,)" #mandatory (26 is current forge version)
+loaderVersion="[30,)" #mandatory
 issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/travel-bag/issues" #optional
 [[mods]] #mandatory
 modId="travel_bag" #mandatory
@@ -16,12 +16,12 @@ Provides somes items "Travel bags" to store your items in, with some behaviors w
 [[dependencies.travel_bag]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[28.1.10,)" #mandatory
+    versionRange="[30.0.16,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.travel_bag]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4,1.15)"
+    versionRange="[1.15.1,1.16)"
     ordering="NONE"
     side="BOTH"
