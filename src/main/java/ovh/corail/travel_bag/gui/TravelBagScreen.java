@@ -64,7 +64,7 @@ public class TravelBagScreen extends ContainerScreen<TravelBagContainer> {
         getMinecraft().getTextureManager().bindTexture(this.isEnchanted ? ENCHANTED_INVENTORY_BACKGROUND : INVENTORY_BACKGROUND);
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
-        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded()) { // TODO disabled // && CompatibilityTombstone.INSTANCE.hasPerkLevel(getMinecraft().player, 1)) {
+        if (this.isEnchanted && SupportMods.TOMBSTONE.isLoaded() && CompatibilityTombstone.INSTANCE.hasPerkLevel(getMinecraft().player, 1)) {
             int x = this.guiLeft + 11;
             int y = this.guiTop + 140;
             String langString = I18n.format("tombstone.perk.gluttony");

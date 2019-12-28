@@ -1,6 +1,6 @@
 package ovh.corail.travel_bag.compatibility;
 
-/*import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -23,13 +23,12 @@ import ovh.corail.travel_bag.registry.ModItems;
 
 import javax.annotation.Nullable;
 
-import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;*/
+import static ovh.corail.travel_bag.ModTravelBag.MOD_ID;
 
 public class CompatibilityTombstone {
     public static CompatibilityTombstone INSTANCE = new CompatibilityTombstone();
-    // TODO disabled
 
-    /*private static final ResourceLocation TRAVEL_BAG = new ResourceLocation(MOD_ID, "textures/items/travel_bag.png");
+    private static final ResourceLocation TRAVEL_BAG = new ResourceLocation(MOD_ID, "textures/items/travel_bag.png");
     @CapabilityInject(ISoulConsumer.class)
     public static final Capability<ISoulConsumer> SOUL_CONSUMER_CAPABILITY = null;
     @CapabilityInject(ITBCapability.class)
@@ -116,5 +115,5 @@ public class CompatibilityTombstone {
         };
         travel_bag_perk.setRegistryName(TombstoneAPIProps.OWNER, "travel_bag");
         event.getRegistry().register(travel_bag_perk);
-    }*/
+    }
 }
