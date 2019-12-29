@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
-version = '1.0.6'
+version = '1.0.7'
 group = 'ovh.corail'
 archivesBaseName = 'travel_bag'
 
@@ -43,17 +43,18 @@ minecraft {
     }
 }
 
-repositories {
+/*repositories {
     maven { url = "https://dvs1.progwml6.com/files/maven" }
     maven { url = "https://maven.theillusivec4.top/" }
-}
+}*/
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.1-30.0.16'
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.18'
     //runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.0.3")
     //compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.0.3:api")
     //runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
     //compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
+    compileOnly files("modlib/jei-1.15.1-6.0.0.9999-api.jar")
     compileOnly files("modlib/tombstone-4.1.8-1.15.1-api.jar")
 }
 

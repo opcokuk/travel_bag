@@ -1,6 +1,6 @@
 package ovh.corail.travel_bag.compatibility;
 
-/*import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.registration.ISubtypeRegistration;
@@ -9,14 +9,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants;
 import ovh.corail.travel_bag.ModTravelBag;
-import ovh.corail.travel_bag.registry.ModItems;*/
+import ovh.corail.travel_bag.registry.ModItems;
 
 import javax.annotation.Nonnull;
 
-//@JeiPlugin
-public class IntegrationJEI { //implements IModPlugin {
-    // TODO disabled
-    /*@Override
+@JeiPlugin
+public class IntegrationJEI implements IModPlugin {
+    @Override
     @Nonnull
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(ModTravelBag.MOD_ID);
@@ -36,5 +35,5 @@ public class IntegrationJEI { //implements IModPlugin {
             }
             return String.valueOf(8606770);
         }
-    }*/
+    }
 }
