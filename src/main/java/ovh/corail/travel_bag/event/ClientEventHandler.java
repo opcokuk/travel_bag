@@ -44,8 +44,7 @@ public class ClientEventHandler {
         if (SupportMods.CURIOS.isLoaded() && ((isFirst = keybindCuriosBag1.isPressed()) || keybindCuriosBag2.isPressed())) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null && mc.currentScreen == null) {
-                // TODO disabled
-                //CompatibilityCurios.INSTANCE.openBag(mc.player, isFirst);
+                CompatibilityCurios.INSTANCE.openBag(mc.player, isFirst);
                 COOLDOWN = 10;
             }
         }

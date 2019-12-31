@@ -1,6 +1,6 @@
 package ovh.corail.travel_bag.compatibility;
 
-/*import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -26,12 +26,11 @@ import top.theillusivec4.curios.api.imc.CurioIMCMessage;
 import top.theillusivec4.curios.api.inventory.CurioStackHandler;
 
 import javax.annotation.Nullable;
-import java.util.SortedMap;*/
+import java.util.SortedMap;
 
 public class CompatibilityCurios {
     public static final CompatibilityCurios INSTANCE = new CompatibilityCurios();
-    // TODO disabled
-    /*private final ResourceLocation EMPTY_BAG = new ResourceLocation("curios", "textures/item/empty_bag_slot.png");
+    private final ResourceLocation EMPTY_BAG = new ResourceLocation("curios", "textures/item/empty_bag_slot.png");
     @CapabilityInject(ICurioItemHandler.class)
     public static final Capability<ICurioItemHandler> INVENTORY = null;
     @CapabilityInject(ICurio.class)
@@ -84,5 +83,5 @@ public class CompatibilityCurios {
     }
 
     public class TravelBagCuriosCap implements ICurio {
-    }*/
+    }
 }

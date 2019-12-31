@@ -43,8 +43,7 @@ public class ModTravelBag {
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (SupportMods.CURIOS.isLoaded()) {
-            // TODO disabled
-            //CompatibilityCurios.INSTANCE.sendIMC();
+            CompatibilityCurios.INSTANCE.sendIMC();
         }
     }
 }

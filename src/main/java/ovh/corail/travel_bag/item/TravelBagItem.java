@@ -310,9 +310,8 @@ public class TravelBagItem extends Item {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 return LazyOptional.of(() -> handler).cast();
             }
-            if (SupportMods.CURIOS.isLoaded()) { // TODO disabled // && cap == CompatibilityCurios.ITEM) {
-                //return CompatibilityCurios.INSTANCE.getCuriosCapability(cap);
-                return LazyOptional.empty();
+            if (SupportMods.CURIOS.isLoaded() && cap == CompatibilityCurios.ITEM) {
+                return CompatibilityCurios.INSTANCE.getCuriosCapability(cap);
             }
             if (SupportMods.TOMBSTONE.isLoaded() && cap == CompatibilityTombstone.SOUL_CONSUMER_CAPABILITY) {
                 return CompatibilityTombstone.INSTANCE.getTravelBagCapability(cap);
