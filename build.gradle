@@ -46,15 +46,20 @@ minecraft {
 repositories {
     maven { url = "https://dvs1.progwml6.com/files/maven" }
     maven { url = "https://maven.theillusivec4.top/" }
+    maven { url 'https://maven.blamejared.com' }
+    flatDir { dirs 'modlib' }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.26'
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25:api")
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.61'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.6")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.6:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
-    compileOnly files("modlib/tombstone-4.1.1-1.14.4-api.jar")
+    compileOnly "modlib:tombstone:4.1.1-1.14.4:api"
+    runtimeOnly fg.deobf("vazkii.arl:AutoRegLib:1.4-36.70")
+    runtimeOnly fg.deobf("vazkii.quark:Quark:r2.0-208.923")
+    compileOnly "modlib:quark:r2.0-209-lite:api"
 }
 
 jar {

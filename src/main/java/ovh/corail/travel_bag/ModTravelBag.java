@@ -9,6 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import ovh.corail.travel_bag.compatibility.CompatibilityCurios;
+import ovh.corail.travel_bag.compatibility.CompatibilityQuark;
 import ovh.corail.travel_bag.compatibility.CompatibilityTombstone;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.config.TravelBagConfig;
@@ -37,7 +38,7 @@ public class ModTravelBag {
     }
 
     private void clientInit(final FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(ModContainers.TRAVEL_BAG, TravelBagScreen::new);
+        ScreenManager.registerFactory(ModContainers.TRAVEL_BAG, SupportMods.QUARK.isLoaded() ? CompatibilityQuark.ButtonIgnoredScreen::new : TravelBagScreen::new);
         event.getMinecraftSupplier().get().getItemColors().register(TravelBagItem::getColor, ModItems.TRAVEL_BAG);
     }
 

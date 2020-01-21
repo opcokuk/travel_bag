@@ -5,7 +5,8 @@ import net.minecraftforge.fml.ModList;
 
 public enum SupportMods implements IStringSerializable {
     CURIOS("curios"),
-    TOMBSTONE("tombstone");
+    TOMBSTONE("tombstone"),
+    QUARK("quark");
 
     private final String modid;
     private final boolean loaded;
