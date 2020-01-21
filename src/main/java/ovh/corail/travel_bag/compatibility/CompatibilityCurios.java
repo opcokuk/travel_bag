@@ -30,7 +30,7 @@ import java.util.SortedMap;
 
 public class CompatibilityCurios {
     public static final CompatibilityCurios INSTANCE = new CompatibilityCurios();
-    private final ResourceLocation EMPTY_BAG = new ResourceLocation("curios", "textures/item/empty_bag_slot.png");
+    public final ResourceLocation EMPTY_BAG = new ResourceLocation("curios", "item/empty_bag_slot");
     @CapabilityInject(ICurioItemHandler.class)
     public static final Capability<ICurioItemHandler> INVENTORY = null;
     @CapabilityInject(ICurio.class)
