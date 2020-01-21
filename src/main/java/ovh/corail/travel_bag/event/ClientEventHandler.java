@@ -3,6 +3,7 @@ package ovh.corail.travel_bag.event;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -58,7 +59,7 @@ public class ClientEventHandler {
     public static class ModBus {
         @SubscribeEvent
         public static void onStitchTextures(TextureStitchEvent.Pre event) {
-            if (SupportMods.CURIOS.isLoaded()) {
+            if (SupportMods.CURIOS.isLoaded() && event.getMap().func_229223_g_().equals(PlayerContainer.field_226615_c_)) {
                 event.addSprite(CompatibilityCurios.INSTANCE.EMPTY_BAG);
             }
         }
