@@ -7,6 +7,8 @@ import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
 import ovh.corail.travel_bag.inventory.TravelBagContainer.BagPlace;
 
+import java.util.Arrays;
+
 public class Helper {
 
     public static boolean compareTags(ItemStack stack1, ItemStack stack2) {
@@ -28,5 +30,18 @@ public class Helper {
             return CompatibilityCurios.INSTANCE.getCuriosStack(player, place == BagPlace.CURIOS_BAG_0);
         }
         return ItemStack.EMPTY;
+    }
+
+    public static boolean existClass(String... classNames) {
+        return Arrays.stream(classNames).allMatch(Helper::existClass);
+    }
+
+    public static boolean existClass(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
