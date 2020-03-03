@@ -5,6 +5,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import ovh.corail.travel_bag.compatibility.CompatibilityCurios;
 import ovh.corail.travel_bag.compatibility.SupportMods;
+import ovh.corail.travel_bag.helper.Helper;
 
 import java.util.function.Supplier;
 
@@ -15,23 +16,26 @@ public class OpenCuriosBagPacket {
         this.isFirstSlot = isFirstSlot;
     }
 
-    public static OpenCuriosBagPacket fromBytes(PacketBuffer buf) {
+    static OpenCuriosBagPacket fromBytes(PacketBuffer buf) {
         return new OpenCuriosBagPacket(buf.readBoolean());
     }
 
-    public static void toBytes(OpenCuriosBagPacket msg, PacketBuffer buf) {
+    static void toBytes(OpenCuriosBagPacket msg, PacketBuffer buf) {
         buf.writeBoolean(msg.isFirstSlot);
     }
 
-    public static class Handler {
-        public static void handle(final OpenCuriosBagPacket message, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> {
-                ServerPlayerEntity player = ctx.get().getSender();
-                if (player != null && SupportMods.CURIOS.isLoaded()) {
-                    CompatibilityCurios.INSTANCE.openBag(player, message.isFirstSlot);
-                }
-            });
-            ctx.get().setPacketHandled(true);
+    static class Handler {
+        static void handle(final OpenCuriosBagPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
+            NetworkEvent.Context ctx = contextSupplier.get();
+            if (Helper.isPacketToServer(ctx)) {
+                ctx.enqueueWork(() -> {
+                    ServerPlayerEntity player = ctx.getSender();
+                    if (player != null && SupportMods.CURIOS.isLoaded()) {
+                        CompatibilityCurios.INSTANCE.openBag(player, message.isFirstSlot);
+                    }
+                });
+            }
+            ctx.setPacketHandled(true);
         }
     }
 }

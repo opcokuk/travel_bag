@@ -2,6 +2,8 @@ package ovh.corail.travel_bag.helper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.network.NetworkEvent;
 import ovh.corail.travel_bag.compatibility.CompatibilityCurios;
 import ovh.corail.travel_bag.compatibility.SupportMods;
 import ovh.corail.travel_bag.inventory.TravelBagContainer;
@@ -28,5 +30,13 @@ public class Helper {
             return CompatibilityCurios.INSTANCE.getCuriosStack(player, place == BagPlace.CURIOS_BAG_0);
         }
         return ItemStack.EMPTY;
+    }
+
+    public static boolean isPacketToClient(NetworkEvent.Context ctx) {
+        return ctx.getDirection().getOriginationSide() == LogicalSide.SERVER && ctx.getDirection().getReceptionSide() == LogicalSide.CLIENT;
+    }
+
+    public static boolean isPacketToServer(NetworkEvent.Context ctx) {
+        return ctx.getDirection().getOriginationSide() == LogicalSide.CLIENT && ctx.getDirection().getReceptionSide() == LogicalSide.SERVER;
     }
 }

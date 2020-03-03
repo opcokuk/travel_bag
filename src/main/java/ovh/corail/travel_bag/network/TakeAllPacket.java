@@ -16,31 +16,34 @@ public class TakeAllPacket {
     public TakeAllPacket() {
     }
 
-    public static TakeAllPacket fromBytes(PacketBuffer buf) {
+    static TakeAllPacket fromBytes(PacketBuffer buf) {
         return new TakeAllPacket();
     }
 
-    public static void toBytes(TakeAllPacket msg, PacketBuffer buf) {
+    static void toBytes(TakeAllPacket msg, PacketBuffer buf) {
     }
 
-    public static class Handler {
-        public static void handle(final TakeAllPacket message, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> {
-                ServerPlayerEntity player = ctx.get().getSender();
-                if (player != null) {
-                    ItemStack heldStack = Helper.getContainerBagStack(player);
-                    if (heldStack.getItem() == ModItems.TRAVEL_BAG) {
-                        heldStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(cap -> {
-                            for (int slot = 0; slot < cap.getSlots(); slot++) {
-                                if (!cap.getStackInSlot(slot).isEmpty()) {
-                                    ItemHandlerHelper.giveItemToPlayer(player, cap.extractItem(slot, 64, false), -1);
+    static class Handler {
+        static void handle(final TakeAllPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
+            NetworkEvent.Context ctx = contextSupplier.get();
+            if (Helper.isPacketToServer(ctx)) {
+                ctx.enqueueWork(() -> {
+                    ServerPlayerEntity player = ctx.getSender();
+                    if (player != null) {
+                        ItemStack heldStack = Helper.getContainerBagStack(player);
+                        if (heldStack.getItem() == ModItems.TRAVEL_BAG) {
+                            heldStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(cap -> {
+                                for (int slot = 0; slot < cap.getSlots(); slot++) {
+                                    if (!cap.getStackInSlot(slot).isEmpty()) {
+                                        ItemHandlerHelper.giveItemToPlayer(player, cap.extractItem(slot, 64, false), -1);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
-                }
-            });
-            ctx.get().setPacketHandled(true);
+                });
+            }
+            ctx.setPacketHandled(true);
         }
     }
 }
