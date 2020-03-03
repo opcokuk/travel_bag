@@ -59,7 +59,7 @@ public class ClientEventHandler {
     public static class ModBus {
         @SubscribeEvent
         public static void onStitchTextures(TextureStitchEvent.Pre event) {
-            if (SupportMods.CURIOS.isLoaded() && event.getMap().func_229223_g_().equals(PlayerContainer.field_226615_c_)) {
+            if (SupportMods.CURIOS.isLoaded() && event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
                 event.addSprite(CompatibilityCurios.INSTANCE.EMPTY_BAG);
             }
         }
