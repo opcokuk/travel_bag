@@ -45,6 +45,7 @@ public class ModTravelBag {
             LOGGER.info("Registring Gluttony Perk");
             CompatibilityTombstone.INSTANCE.register();
         }
+        PROXY.preInit();
     }
 
     private void registerSharedConfig(ModLoadingContext context) {
