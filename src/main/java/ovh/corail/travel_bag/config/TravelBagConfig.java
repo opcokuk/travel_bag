@@ -56,7 +56,7 @@ public class TravelBagConfig {
         public static void onReloadConfig(ModConfig.Reloading event) {
             if (event.getConfig().getModId().equals(MOD_ID) && event.getConfig().getType() == ModConfig.Type.SERVER) {
                 // sync the config on all clients on dedicated server without the need to relog
-                PROXY.updateConfig();
+                PROXY.markConfigDirty();
             }
         }
     }
